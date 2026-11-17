@@ -65,3 +65,15 @@ export const resetUserPassword = async (userId) => {
   const response = await apiClient.patch(`/users/${userId}/reset-password`);
   return response.data;
 };
+
+/**
+ * Get users by role
+ * @param {string} role - User role to filter by
+ * @returns {Promise<Array>} List of users with specified role
+ */
+export const getUsersByRole = async (role) => {
+  const response = await apiClient.get('/users', { 
+    params: { role, limit: 100 } 
+  });
+  return response.data.users || response.data;
+};

@@ -180,15 +180,15 @@ This implementation plan breaks down the development into logically ordered, tes
     - Record all ticket updates in ticket_history automatically
     - _Requirements: 2.6, 2.7, 2.9_
 
-- [~] 9. Ticket management frontend
-  - [-] 9.1 Create ticket list components
+- [x] 9. Ticket management frontend
+  - [x] 9.1 Create ticket list components
     - Build TicketList component with status badges in Croatian
     - Build TicketCard component displaying title, status, priority, timestamps
     - Implement TicketFilters component with status, assignee, date range filters
     - Format all dates using Croatian locale (dd.MM.yyyy HH:mm)
     - _Requirements: 2.3, 2.4, 2.5, 12.2, 12.3, 17.1_
   
-  - [ ] 9.2 Create ticket detail and form components
+  - [x] 9.2 Create ticket detail and form components
     - Build TicketDetail component showing full ticket information
     - Build TicketForm component for creation and editing
     - Implement validation with Zod schemas
@@ -196,7 +196,7 @@ This implementation plan breaks down the development into logically ordered, tes
     - Show loading skeletons during data fetch
     - _Requirements: 2.1, 2.10, 12.6, 15.8_
   
-  - [ ] 9.3 Implement ticket history and comments UI
+  - [x] 9.3 Implement ticket history and comments UI
     - Build TicketHistory component showing timeline of changes
     - Build TicketComments component with comment list and form
     - Format timestamps in Croatian locale
@@ -214,28 +214,30 @@ This implementation plan breaks down the development into logically ordered, tes
 
 ### Phase 4: Core Features - Announcements
 
-- [ ] 11. Announcement CMS backend
-  - [x] 11.1 Create announcement data models
-    - Implement announcement model with create, read, update, soft-delete methods
-    - Implement announcement_categories model
-    - Validate image URLs and file formats
+- [x] 11. Announcement CMS backend ✅
+  - [x] 11.1 Create announcement data models ✅
+    - ✅ Implement announcement model with create, read, update, soft-delete methods
+    - ✅ Implement announcement_categories model
+    - ✅ Validate image URLs and file formats
     - _Requirements: 3.1, 3.5_
   
-  - [ ] 11.2 Implement announcement CRUD API endpoints
-    - Implement GET /api/v1/announcements with category filtering (published only for non-Tehničar)
-    - Implement POST /api/v1/announcements (Tehničar and Administrator only)
-    - Implement PUT /api/v1/announcements/:id with ownership check for Tehničar
-    - Implement PATCH /api/v1/announcements/:id/publish
-    - Implement DELETE /api/v1/announcements/:id (soft delete with deleted_at timestamp)
+  - [x] 11.2 Implement announcement CRUD API endpoints ✅
+    - ✅ Implement GET /api/v1/announcements with category filtering (published only for non-Tehničar)
+    - ✅ Implement POST /api/v1/announcements (Tehničar and Administrator only)
+    - ✅ Implement PUT /api/v1/announcements/:id with ownership check for Tehničar
+    - ✅ Implement PATCH /api/v1/announcements/:id/publish
+    - ✅ Implement DELETE /api/v1/announcements/:id (soft delete with deleted_at timestamp)
     - _Requirements: 3.1, 3.2, 3.3, 3.6, 3.7, 3.8, 17.2_
   
-  - [ ] 11.3 Implement announcement categories API
-    - Implement GET /api/v1/announcement-categories
-    - Implement POST /api/v1/announcement-categories (Administrator only)
+  - [x] 11.3 Implement announcement categories API ✅
+    - ✅ Implement GET /api/v1/announcements/categories
+    - ✅ Implement POST /api/v1/announcements/categories (Administrator only)
+    - ✅ Implement PUT /api/v1/announcements/categories/:id (Administrator only)
+    - ✅ Implement DELETE /api/v1/announcements/categories/:id (Administrator only)
     - _Requirements: 3.2_
 
-- [ ] 12. Announcement CMS frontend
-  - [ ] 12.1 Create announcement display components
+- [~] 12. Announcement CMS frontend
+  - [-] 12.1 Create announcement display components
     - Build AnnouncementList component with category badges and images
     - Build AnnouncementCard component with publish date formatting
     - Build AnnouncementDetail component for full content view
@@ -268,8 +270,8 @@ This implementation plan breaks down the development into logically ordered, tes
 
 ### Phase 5: Dashboard & Statistics
 
-- [ ] 14. Dashboard backend API
-  - [ ] 14.1 Implement dashboard statistics endpoint
+- [x] 14. Dashboard backend API
+  - [x] 14.1 Implement dashboard statistics endpoint
     - Implement GET /api/v1/dashboard/stats calculating ticket counts by status
     - Calculate announcement counts (total and published)
     - Calculate asset counts by status
@@ -277,14 +279,14 @@ This implementation plan breaks down the development into logically ordered, tes
     - Cache statistics for 30 seconds to reduce database load
     - _Requirements: 6.1, 6.2, 6.8, 6.9_
   
-  - [ ] 14.2 Implement recent activity endpoint
+  - [x] 14.2 Implement recent activity endpoint
     - Implement GET /api/v1/dashboard/recent-activity
     - Return recent ticket changes, new announcements
     - Filter activity based on user role
     - _Requirements: 6.3_
 
-- [ ] 15. Dashboard frontend
-  - [ ] 15.1 Build dashboard layout and statistics cards
+- [x] 15. Dashboard frontend
+  - [x] 15.1 Build dashboard layout and statistics cards
     - Create DashboardPage as main entry point
     - Build StatCard components displaying ticket counts, announcement counts
     - Use Croatian labels for all statistics
@@ -292,13 +294,13 @@ This implementation plan breaks down the development into logically ordered, tes
     - Show loading skeletons during data fetch
     - _Requirements: 6.1, 6.2, 6.7, 15.8_
   
-  - [ ] 15.2 Build recent announcements widget
+  - [x] 15.2 Build recent announcements widget
     - Display 5 most recent published announcements
     - Format timestamps in Croatian locale
     - Link to full announcement detail
     - _Requirements: 6.3, 12.2_
   
-  - [ ] 15.3 Implement role-based dashboard content
+  - [x] 15.3 Implement role-based dashboard content
     - Show public data only for Posjetitelj
     - Show own tickets + published announcements for Registrirani_Korisnik
     - Show full statistics and external service status for Tehničar/Administrator

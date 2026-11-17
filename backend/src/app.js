@@ -72,7 +72,7 @@ app.get('/api/v1', (req, res) => {
 });
 
 // API Routes
-import { authRoutes, ticketRoutes, announcementRoutes, usersRoutes } from './routes/index.js';
+import { authRoutes, ticketRoutes, announcementRoutes, usersRoutes, dashboardRoutes } from './routes/index.js';
 
 // Authentication routes
 app.use('/api/v1/auth', authRoutes);
@@ -85,6 +85,9 @@ app.use('/api/v1/announcements', announcementRoutes);
 
 // User management routes (Administrator only)
 app.use('/api/v1/users', usersRoutes);
+
+// Dashboard routes
+app.use('/api/v1/dashboard', dashboardRoutes);
 
 // 404 handler for undefined routes
 app.use((req, res, next) => {

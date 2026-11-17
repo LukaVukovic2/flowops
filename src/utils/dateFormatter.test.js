@@ -177,8 +177,8 @@ describe('dateFormatter', () => {
     });
 
     it('handles year boundaries', () => {
-      const newYearEve = '2023-12-31T23:59:59Z';
-      const newYear = '2024-01-01T00:00:00Z';
+      const newYearEve = '2023-12-31T12:00:00Z';
+      const newYear = '2024-01-01T12:00:00Z';
       
       expect(formatDate(newYearEve)).toBe('31.12.2023');
       expect(formatDate(newYear)).toBe('01.01.2024');

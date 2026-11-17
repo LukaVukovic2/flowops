@@ -62,11 +62,11 @@ const Modal = ({
       onClick={handleOverlayClick}
     >
       <div
-        className={`bg-white rounded-lg shadow-xl ${sizeClasses[size]} w-full max-h-[90vh] flex flex-col`}
+        className={`bg-gray-900 rounded-lg shadow-xl ${sizeClasses[size]} w-full max-h-[90vh] flex flex-col`}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
-          <h2 className="text-xl font-semibold text-gray-900">{title}</h2>
+        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-700">
+          <h2 className="text-xl font-semibold text-white">{title}</h2>
           <button
             onClick={onClose}
             className="text-gray-400 hover:text-gray-600 transition-colors"
@@ -95,7 +95,7 @@ const Modal = ({
 
         {/* Footer */}
         {footer && (
-          <div className="flex items-center justify-end gap-3 px-6 py-4 border-t border-gray-200">
+          <div className="flex items-center justify-end gap-3 px-6 py-4 border-t border-gray-700">
             {footer}
           </div>
         )}
