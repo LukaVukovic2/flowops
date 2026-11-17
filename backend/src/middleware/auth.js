@@ -1,22 +1,25 @@
 /**
  * JWT Authentication Middleware
- * Implements requirements 1.1, 1.4, and 11.7
+ * Implements requirements 1.1, 1.4, 5.4, and 11.7
  * 
  * Verifies JWT tokens from Authorization header and attaches user info to request
+ * Requirement 5.4: Checks if user account is active before allowing access
  */
 
 import { verifyToken, extractTokenFromHeader } from '../utils/jwt.js';
+import { getUserById } from '../models/user.model.js';
 
 /**
  * Authentication middleware
  * Extracts and verifies JWT token from Authorization header
  * Attaches decoded user information to req.user
+ * Requirement 5.4: Verifies user account is still active
  * 
  * @param {Object} req - Express request object
  * @param {Object} res - Express response object
  * @param {Function} next - Express next middleware function
  */
-export function authMiddleware(req, res, next) {
+export async function authMiddleware(req, res, next) {
   try {
     // Extract Authorization header
     const authHeader = req.headers.authorization || req.headers.Authorization;
@@ -41,6 +44,24 @@ export function authMiddleware(req, res, next) {
     // Verify token
     try {
       const decoded = verifyToken(token);
+
+      // Requirement 5.4: Check if user account is still active
+      // This prevents deactivated users from using valid tokens
+      const user = await getUserById(decoded.userId);
+
+      if (!user) {
+        return res.status(401).json({
+          error: 'Neautorizirani pristup',
+          message: 'Korisnički račun ne postoji'
+        });
+      }
+
+      if (!user.is_active) {
+        return res.status(401).json({
+          error: 'Račun deaktiviran',
+          message: 'Vaš korisnički račun je deaktiviran. Kontaktirajte administratora.'
+        });
+      }
 
       // Attach user information to request object
       req.user = {

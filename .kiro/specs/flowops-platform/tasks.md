@@ -32,45 +32,46 @@ This implementation plan breaks down the development into logically ordered, tes
     - Test connection from backend
     - _Requirements: 10.1_
 
-- [~] 2. Database schema and migrations
+- [x] 2. 
+
   - [x] 2.1 Create users table migration
     - Write migration for users table with id, email, password_hash, role, first_name, last_name, is_active, timestamps
     - Add indexes on email, role, is_active
     - Add CHECK constraint for role enum values
     - _Requirements: 10.3, 1.5_
   
-  - [-] 2.2 Create tickets and ticket_history tables migration
+  - [x] 2.2 Create tickets and ticket_history tables migration
     - Write migration for tickets table with foreign keys to users (creator, assignee)
     - Write migration for ticket_history table tracking all changes
     - Write migration for ticket_comments table
     - Add indexes on status, creator_id, assignee_id, created_at
     - _Requirements: 10.4, 2.1, 2.6_
   
-  - [-] 2.3 Create announcements tables migration
+  - [x] 2.3 Create announcements tables migration
     - Write migration for announcement_categories table
     - Write migration for announcements table with foreign keys to users and categories
     - Add indexes on is_published, published_at, author_id, category_id
     - _Requirements: 10.5, 3.1_
   
-  - [-] 2.4 Create assets table migration
+  - [x] 2.4 Create assets table migration
     - Write migration for assets table with type, status, location, serial_number fields
     - Add CHECK constraints for type and status enums
     - Add indexes on type, status, location
     - _Requirements: 8.1, 8.2, 8.3_
   
-  - [-] 2.5 Create workflow tables migration
+  - [x] 2.5 Create workflow tables migration
     - Write migration for workflow_rules table with trigger_config and actions as JSONB
     - Write migration for workflow_executions table tracking execution history
     - Add indexes on trigger_type, is_enabled, workflow_rule_id
     - _Requirements: 4.1, 4.5_
   
-  - [-] 2.6 Create audit_logs and external_service_status tables migration
+  - [x] 2.6 Create audit_logs and external_service_status tables migration
     - Write migration for audit_logs table with user_id, action_type, resource references
     - Write migration for external_service_status cache table
     - Add indexes on user_id, created_at, action_type, service_name
     - _Requirements: 16.1, 16.2, 7.4_
 
-- [~] 3. Checkpoint - Database foundation complete
+- [ ] 3. Checkpoint - Database foundation complete
   - Ensure all migrations apply successfully without errors
   - Verify all foreign key constraints work correctly
   - Verify all indexes are created
@@ -78,7 +79,7 @@ This implementation plan breaks down the development into logically ordered, tes
 
 ### Phase 2: Authentication & User Management
 
-- [~] 4. Backend authentication system
+- [x] 4. Backend authentication system
   - [x] 4.1 Implement password hashing and validation
     - Create auth utility functions using bcrypt with SALT_ROUNDS=12
     - Implement password validation with regex for complexity requirements
@@ -92,7 +93,7 @@ This implementation plan breaks down the development into logically ordered, tes
     - Handle expired tokens with appropriate error responses
     - _Requirements: 1.1, 1.4, 11.7_
   
-  - [-] 4.3 Create authentication API endpoints
+  - [x] 4.3 Create authentication API endpoints
     - Implement POST /api/v1/auth/register endpoint with email/password validation
     - Implement POST /api/v1/auth/login endpoint with credential verification
     - Implement POST /api/v1/auth/logout endpoint (optional token blacklist)
@@ -100,21 +101,21 @@ This implementation plan breaks down the development into logically ordered, tes
     - Return Croatian error messages for all authentication failures
     - _Requirements: 1.1, 1.2, 9.4, 9.5, 20.1_
   
-  - [-] 4.4 Implement role-based access control middleware
+  - [x] 4.4 Implement role-based access control middleware
     - Create RBAC middleware checking user role against allowed roles
     - Return 403 with Croatian error message for unauthorized access
     - Create permission helper utilities
     - _Requirements: 1.6, 1.7_
 
-- [ ] 5. Frontend authentication system
-  - [~] 5.1 Create authentication context and hooks
+- [x] 5. Frontend authentication system
+  - [x] 5.1 Create authentication context and hooks
     - Implement AuthContext with user state, login, logout, register functions
     - Create useAuth hook for accessing auth context
     - Store JWT token in localStorage with automatic injection in API requests
     - Handle token expiry with automatic logout
     - _Requirements: 1.1, 1.4_
   
-  - [~] 5.2 Build login and registration pages
+  - [x] 5.2 Build login and registration pages
     - Create LoginPage component with email/password form
     - Create RegisterPage component with email/password/name fields
     - Implement form validation with Zod schemas
@@ -122,15 +123,15 @@ This implementation plan breaks down the development into logically ordered, tes
     - Show loading states during authentication
     - _Requirements: 1.1, 1.2, 12.1, 12.6_
   
-  - [~] 5.3 Create protected route components
+  - [x] 5.3 Create protected route components
     - Implement ProtectedRoute component checking authentication
     - Implement RoleRoute component checking role permissions
     - Redirect to login page when unauthenticated
     - Display Croatian error for unauthorized access attempts
     - _Requirements: 1.6, 1.7_
 
-- [ ] 6. User administration (Administrator only)
-  - [~] 6.1 Create user management backend API
+- [x] 6. User administration (Administrator only)
+  - [x] 6.1 Create user management backend API
     - Implement GET /api/v1/users endpoint with pagination and role filtering
     - Implement PATCH /api/v1/users/:id/role endpoint for role changes
     - Implement PATCH /api/v1/users/:id/deactivate endpoint
@@ -139,7 +140,7 @@ This implementation plan breaks down the development into logically ordered, tes
     - Log all user management actions to audit_logs
     - _Requirements: 5.1, 5.2, 5.3, 5.7, 5.8, 5.9_
   
-  - [~] 6.2 Build user management UI
+  - [x] 6.2 Build user management UI
     - Create UserManagementPage displaying user list with role and status
     - Implement role change modal with confirmation
     - Implement user deactivation with confirmation dialog
@@ -147,7 +148,7 @@ This implementation plan breaks down the development into logically ordered, tes
     - Show success/error notifications for actions
     - _Requirements: 5.5, 5.9, 12.1_
 
-- [~] 7. Checkpoint - Authentication system complete
+- [ ] 7. Checkpoint - Authentication system complete
   - Test registration, login, logout workflows
   - Verify JWT tokens expire after 24 hours
   - Verify role-based access control prevents unauthorized actions
@@ -156,15 +157,15 @@ This implementation plan breaks down the development into logically ordered, tes
 
 ### Phase 3: Core Features - Tickets
 
-- [ ] 8. Ticket management backend
-  - [~] 8.1 Create ticket data models and business logic
+- [x] 8. Ticket management backend
+  - [x] 8.1 Create ticket data models and business logic
     - Implement ticket model with create, read, update methods
     - Implement ticket history model for change tracking
     - Implement ticket comments model
     - Ensure all timestamps are stored in UTC
     - _Requirements: 2.1, 2.6, 2.7_
   
-  - [~] 8.2 Implement ticket CRUD API endpoints
+  - [x] 8.2 Implement ticket CRUD API endpoints
     - Implement GET /api/v1/tickets with filtering (status, assignee, creator, date range)
     - Implement POST /api/v1/tickets (auto-assign status "Nova")
     - Implement GET /api/v1/tickets/:id with authorization check
@@ -172,22 +173,22 @@ This implementation plan breaks down the development into logically ordered, tes
     - Implement PATCH /api/v1/tickets/:id/status for status changes
     - _Requirements: 2.2, 2.3, 2.4, 2.5, 2.8, 2.10, 17.1_
   
-  - [~] 8.3 Implement ticket history and comments API
+  - [x] 8.3 Implement ticket history and comments API
     - Implement GET /api/v1/tickets/:id/history returning chronological changes
     - Implement GET /api/v1/tickets/:id/comments with pagination
     - Implement POST /api/v1/tickets/:id/comments with author tracking
     - Record all ticket updates in ticket_history automatically
     - _Requirements: 2.6, 2.7, 2.9_
 
-- [ ] 9. Ticket management frontend
-  - [~] 9.1 Create ticket list components
+- [~] 9. Ticket management frontend
+  - [-] 9.1 Create ticket list components
     - Build TicketList component with status badges in Croatian
     - Build TicketCard component displaying title, status, priority, timestamps
     - Implement TicketFilters component with status, assignee, date range filters
     - Format all dates using Croatian locale (dd.MM.yyyy HH:mm)
     - _Requirements: 2.3, 2.4, 2.5, 12.2, 12.3, 17.1_
   
-  - [~] 9.2 Create ticket detail and form components
+  - [ ] 9.2 Create ticket detail and form components
     - Build TicketDetail component showing full ticket information
     - Build TicketForm component for creation and editing
     - Implement validation with Zod schemas
@@ -195,14 +196,14 @@ This implementation plan breaks down the development into logically ordered, tes
     - Show loading skeletons during data fetch
     - _Requirements: 2.1, 2.10, 12.6, 15.8_
   
-  - [~] 9.3 Implement ticket history and comments UI
+  - [ ] 9.3 Implement ticket history and comments UI
     - Build TicketHistory component showing timeline of changes
     - Build TicketComments component with comment list and form
     - Format timestamps in Croatian locale
     - Show author names for all comments and changes
     - _Requirements: 2.6, 2.7, 12.2_
 
-- [~] 10. Checkpoint - Ticket system complete
+- [ ] 10. Checkpoint - Ticket system complete
   - Test creating tickets as Registrirani_Korisnik
   - Verify tickets start with status "Nova"
   - Verify Registrirani_Korisnik can only view own tickets
@@ -214,13 +215,13 @@ This implementation plan breaks down the development into logically ordered, tes
 ### Phase 4: Core Features - Announcements
 
 - [ ] 11. Announcement CMS backend
-  - [~] 11.1 Create announcement data models
+  - [x] 11.1 Create announcement data models
     - Implement announcement model with create, read, update, soft-delete methods
     - Implement announcement_categories model
     - Validate image URLs and file formats
     - _Requirements: 3.1, 3.5_
   
-  - [~] 11.2 Implement announcement CRUD API endpoints
+  - [ ] 11.2 Implement announcement CRUD API endpoints
     - Implement GET /api/v1/announcements with category filtering (published only for non-Tehničar)
     - Implement POST /api/v1/announcements (Tehničar and Administrator only)
     - Implement PUT /api/v1/announcements/:id with ownership check for Tehničar
@@ -228,13 +229,13 @@ This implementation plan breaks down the development into logically ordered, tes
     - Implement DELETE /api/v1/announcements/:id (soft delete with deleted_at timestamp)
     - _Requirements: 3.1, 3.2, 3.3, 3.6, 3.7, 3.8, 17.2_
   
-  - [~] 11.3 Implement announcement categories API
+  - [ ] 11.3 Implement announcement categories API
     - Implement GET /api/v1/announcement-categories
     - Implement POST /api/v1/announcement-categories (Administrator only)
     - _Requirements: 3.2_
 
 - [ ] 12. Announcement CMS frontend
-  - [~] 12.1 Create announcement display components
+  - [ ] 12.1 Create announcement display components
     - Build AnnouncementList component with category badges and images
     - Build AnnouncementCard component with publish date formatting
     - Build AnnouncementDetail component for full content view
@@ -242,7 +243,7 @@ This implementation plan breaks down the development into logically ordered, tes
     - Format timestamps in Croatian locale
     - _Requirements: 3.3, 3.9, 3.10, 12.2_
   
-  - [~] 12.2 Create announcement management UI (Tehničar/Administrator)
+  - [ ] 12.2 Create announcement management UI (Tehničar/Administrator)
     - Build AnnouncementForm component with title, content, category, image fields
     - Implement image upload validation (format and size ≤ 10MB)
     - Build publish/unpublish toggle
@@ -250,13 +251,13 @@ This implementation plan breaks down the development into logically ordered, tes
     - Show success notifications on publish
     - _Requirements: 3.1, 3.4, 3.5, 3.6, 12.1, 12.6_
   
-  - [~] 12.3 Implement announcement filtering
+  - [ ] 12.3 Implement announcement filtering
     - Build AnnouncementFilters component with category and author filters
     - Update list view when filters change
     - Display filter controls in Croatian
     - _Requirements: 17.2_
 
-- [~] 13. Checkpoint - Announcement system complete
+- [ ] 13. Checkpoint - Announcement system complete
   - Test creating announcements as Tehničar
   - Verify unpublished announcements not visible to non-Tehničar
   - Test publishing announcements
@@ -268,7 +269,7 @@ This implementation plan breaks down the development into logically ordered, tes
 ### Phase 5: Dashboard & Statistics
 
 - [ ] 14. Dashboard backend API
-  - [~] 14.1 Implement dashboard statistics endpoint
+  - [ ] 14.1 Implement dashboard statistics endpoint
     - Implement GET /api/v1/dashboard/stats calculating ticket counts by status
     - Calculate announcement counts (total and published)
     - Calculate asset counts by status
@@ -276,14 +277,14 @@ This implementation plan breaks down the development into logically ordered, tes
     - Cache statistics for 30 seconds to reduce database load
     - _Requirements: 6.1, 6.2, 6.8, 6.9_
   
-  - [~] 14.2 Implement recent activity endpoint
+  - [ ] 14.2 Implement recent activity endpoint
     - Implement GET /api/v1/dashboard/recent-activity
     - Return recent ticket changes, new announcements
     - Filter activity based on user role
     - _Requirements: 6.3_
 
 - [ ] 15. Dashboard frontend
-  - [~] 15.1 Build dashboard layout and statistics cards
+  - [ ] 15.1 Build dashboard layout and statistics cards
     - Create DashboardPage as main entry point
     - Build StatCard components displaying ticket counts, announcement counts
     - Use Croatian labels for all statistics
@@ -291,19 +292,19 @@ This implementation plan breaks down the development into logically ordered, tes
     - Show loading skeletons during data fetch
     - _Requirements: 6.1, 6.2, 6.7, 15.8_
   
-  - [~] 15.2 Build recent announcements widget
+  - [ ] 15.2 Build recent announcements widget
     - Display 5 most recent published announcements
     - Format timestamps in Croatian locale
     - Link to full announcement detail
     - _Requirements: 6.3, 12.2_
   
-  - [~] 15.3 Implement role-based dashboard content
+  - [ ] 15.3 Implement role-based dashboard content
     - Show public data only for Posjetitelj
     - Show own tickets + published announcements for Registrirani_Korisnik
     - Show full statistics and external service status for Tehničar/Administrator
     - _Requirements: 6.8, 6.9_
 
-- [~] 16. Checkpoint - Dashboard complete
+- [ ] 16. Checkpoint - Dashboard complete
   - Verify ticket counts match actual database counts
   - Test dashboard loads within 2 seconds
   - Verify Posjetitelj sees only public information
@@ -314,40 +315,40 @@ This implementation plan breaks down the development into logically ordered, tes
 ### Phase 6: IT Asset Management
 
 - [ ] 17. Asset management backend
-  - [~] 17.1 Create asset data model
+  - [ ] 17.1 Create asset data model
     - Implement asset model with CRUD operations
     - Validate type enum (Hardware, Software, Network, Peripheral)
     - Validate status enum (Active, Inactive, Maintenance, Retired)
     - _Requirements: 8.1, 8.2, 8.3_
   
-  - [~] 17.2 Implement asset CRUD API endpoints
+  - [ ] 17.2 Implement asset CRUD API endpoints
     - Implement GET /api/v1/assets with filtering by type, status, location
     - Implement POST /api/v1/assets (Tehničar and Administrator only)
     - Implement PUT /api/v1/assets/:id
     - Implement DELETE /api/v1/assets/:id (Administrator only)
     - _Requirements: 8.4, 8.5, 17.3_
   
-  - [~] 17.3 Implement asset-ticket linking
+  - [ ] 17.3 Implement asset-ticket linking
     - Add assetId foreign key handling in ticket create/update
     - Implement endpoint to get tickets linked to specific asset
     - _Requirements: 8.6, 8.7_
 
 - [ ] 18. Asset management frontend
-  - [~] 18.1 Create asset list and detail components
+  - [ ] 18.1 Create asset list and detail components
     - Build AssetList component with type and status badges
     - Build AssetCard component
     - Build AssetDetail component showing all asset information
     - Display linked tickets in asset detail view
     - _Requirements: 8.7, 8.9_
   
-  - [~] 18.2 Create asset form and filters
+  - [ ] 18.2 Create asset form and filters
     - Build AssetForm component with all asset fields
     - Implement validation with Zod schemas
     - Build AssetFilters component for type, status, location filtering
     - Display Croatian labels and validation errors
     - _Requirements: 8.1, 8.4, 8.8, 8.10, 12.1_
 
-- [~] 19. Checkpoint - Asset management complete
+- [ ] 19. Checkpoint - Asset management complete
   - Test creating assets as Tehničar
   - Test linking assets to tickets
   - Verify asset-ticket relationships display correctly
@@ -358,21 +359,21 @@ This implementation plan breaks down the development into logically ordered, tes
 ### Phase 7: Workflow Automation Engine
 
 - [ ] 20. Workflow engine core
-  - [~] 20.1 Implement workflow trigger evaluators
+  - [ ] 20.1 Implement workflow trigger evaluators
     - Create TriggerEvaluator for ticket_created trigger
     - Create TriggerEvaluator for ticket_status_changed trigger
     - Create TriggerEvaluator for time_scheduled trigger using node-cron
     - Create TriggerEvaluator for external_status_changed trigger
     - _Requirements: 4.2_
   
-  - [~] 20.2 Implement workflow action executors
+  - [ ] 20.2 Implement workflow action executors
     - Create ActionExecutor for send_notification action
     - Create ActionExecutor for update_ticket_status action
     - Create ActionExecutor for assign_technician action with strategies (least_loaded, round_robin, specific)
     - Create ActionExecutor for create_announcement action
     - _Requirements: 4.3_
   
-  - [~] 20.3 Build workflow execution engine
+  - [ ] 20.3 Build workflow execution engine
     - Create WorkflowEngine class orchestrating trigger evaluation and action execution
     - Implement processEvent method for event-driven workflows
     - Implement scheduleWorkflows method for time-based workflows
@@ -380,14 +381,14 @@ This implementation plan breaks down the development into logically ordered, tes
     - Ensure workflow failures don't crash system
     - _Requirements: 4.4, 4.5, 4.7_
   
-  - [~] 20.4 Implement circular dependency detection
+  - [ ] 20.4 Implement circular dependency detection
     - Create dependency graph builder analyzing workflow rules
     - Implement cycle detection algorithm
     - Prevent activation of workflows with circular dependencies
     - _Requirements: 4.8_
 
 - [ ] 21. Workflow management backend API
-  - [~] 21.1 Implement workflow CRUD endpoints
+  - [ ] 21.1 Implement workflow CRUD endpoints
     - Implement GET /api/v1/workflows (Administrator only)
     - Implement POST /api/v1/workflows with validation and circular dependency check
     - Implement PUT /api/v1/workflows/:id
@@ -395,19 +396,19 @@ This implementation plan breaks down the development into logically ordered, tes
     - Implement PATCH /api/v1/workflows/:id/toggle for enable/disable
     - _Requirements: 4.1, 4.6_
   
-  - [~] 21.2 Implement workflow testing and execution history
+  - [ ] 21.2 Implement workflow testing and execution history
     - Implement POST /api/v1/workflows/:id/test for dry-run testing
     - Implement GET /api/v1/workflows/:id/executions showing execution history
     - _Requirements: 4.9, 4.10_
 
 - [ ] 22. Workflow management frontend
-  - [~] 22.1 Build workflow list and detail components
+  - [ ] 22.1 Build workflow list and detail components
     - Create WorkflowManagementPage displaying all workflow rules
     - Build WorkflowCard component with enable/disable toggle
     - Display trigger type and action count
     - _Requirements: 4.10, 12.1_
   
-  - [~] 22.2 Create workflow rule form
+  - [ ] 22.2 Create workflow rule form
     - Build WorkflowForm component with trigger type selection
     - Build dynamic trigger config inputs based on trigger type
     - Build dynamic action builder with multiple action types
@@ -415,13 +416,13 @@ This implementation plan breaks down the development into logically ordered, tes
     - Display Croatian labels and validation errors
     - _Requirements: 4.1, 4.2, 4.3, 12.1_
   
-  - [~] 22.3 Build workflow testing UI
+  - [ ] 22.3 Build workflow testing UI
     - Add "Test Workflow" button in workflow detail view
     - Display test results with executed actions log
     - Show success/failure status in Croatian
     - _Requirements: 4.9_
 
-- [~] 23. Checkpoint - Workflow automation complete
+- [ ] 23. Checkpoint - Workflow automation complete
   - Test creating workflow rule with ticket_created trigger
   - Verify workflow executes when trigger condition met
   - Test each action type (notification, status update, assignment, announcement)
@@ -433,40 +434,40 @@ This implementation plan breaks down the development into logically ordered, tes
 ### Phase 8: External API Integration
 
 - [ ] 24. External service integration
-  - [~] 24.1 Implement GitHub Status API integration
+  - [ ] 24.1 Implement GitHub Status API integration
     - Create GitHubStatusService class fetching from githubstatus.com API
     - Parse JSON response extracting status indicator and description
     - Handle API errors gracefully with fallback messages in Croatian
     - _Requirements: 7.1, 7.2, 7.3_
   
-  - [~] 24.2 Implement external service caching
+  - [ ] 24.2 Implement external service caching
     - Create ExternalServiceManager with 5-minute cache TTL
     - Store cached status in external_service_status table
     - Return cached data when available and not expired
     - _Requirements: 7.4_
   
-  - [~] 24.3 Implement external service polling
+  - [ ] 24.3 Implement external service polling
     - Create scheduled poller running every 5 minutes
     - Update cache with fresh data
     - Trigger workflow engine events on status changes
     - Log all API interactions for monitoring
     - _Requirements: 7.6, 7.10_
   
-  - [~] 24.4 Create external service API endpoint
+  - [ ] 24.4 Create external service API endpoint
     - Implement GET /api/v1/external/status returning all external service statuses
     - Validate API responses before processing
     - Handle unavailable services with cached or default values
     - _Requirements: 7.5, 7.7, 7.8, 7.9_
 
 - [ ] 25. External service frontend
-  - [~] 25.1 Build external service status widget
+  - [ ] 25.1 Build external service status widget
     - Create ExternalServiceStatus component for dashboard
     - Display service name, status indicator, last checked time
     - Use color coding for operational/degraded/down statuses
     - Format timestamps in Croatian locale
     - _Requirements: 6.4, 12.2_
 
-- [~] 26. Checkpoint - External integration complete
+- [ ] 26. Checkpoint - External integration complete
   - Verify GitHub Status API fetches correctly
   - Test caching behavior (no API call within 5 minutes)
   - Verify graceful error handling when API unavailable
@@ -476,7 +477,7 @@ This implementation plan breaks down the development into logically ordered, tes
 ### Phase 9: UI Components & Layout
 
 - [ ] 27. Common UI components
-  - [~] 27.1 Build reusable form components
+  - [ ] 27.1 Build reusable form components
     - Create Button component with primary, secondary, outline variants
     - Create Input component with validation error display
     - Create Select component for dropdowns
@@ -484,7 +485,7 @@ This implementation plan breaks down the development into logically ordered, tes
     - All components use Croatian labels
     - _Requirements: 12.6, 15.2_
   
-  - [~] 27.2 Build feedback components
+  - [ ] 27.2 Build feedback components
     - Create Modal component with overlay and close button
     - Create Notification toast component for success/error messages
     - Create LoadingSkeleton component for loading states
@@ -492,7 +493,7 @@ This implementation plan breaks down the development into logically ordered, tes
     - Display all messages in Croatian
     - _Requirements: 14.5, 14.6, 14.7, 15.7, 15.8, 20.5_
   
-  - [~] 27.3 Build data display components
+  - [ ] 27.3 Build data display components
     - Create Card component with hover effects
     - Create Badge component for status indicators
     - Create Pagination component
@@ -500,7 +501,7 @@ This implementation plan breaks down the development into logically ordered, tes
     - _Requirements: 14.8, 14.9_
 
 - [ ] 28. Layout components
-  - [~] 28.1 Build main app layout
+  - [ ] 28.1 Build main app layout
     - Create AppLayout component with navbar, sidebar, and content area
     - Create Navbar component with user menu and logout button
     - Create Sidebar component with navigation links based on user role
@@ -508,7 +509,7 @@ This implementation plan breaks down the development into logically ordered, tes
     - All navigation labels in Croatian
     - _Requirements: 12.1, 12.7, 13.5_
   
-  - [~] 28.2 Implement responsive design
+  - [ ] 28.2 Implement responsive design
     - Add responsive breakpoints for mobile (375px), tablet (768px), desktop (1920px)
     - Switch to mobile layout below 768px width
     - Stack form fields vertically on mobile
@@ -516,7 +517,7 @@ This implementation plan breaks down the development into logically ordered, tes
     - Prevent horizontal scrolling
     - _Requirements: 13.1, 13.2, 13.3, 13.4, 13.6, 13.7, 13.9_
 
-- [~] 29. Checkpoint - UI components complete
+- [ ] 29. Checkpoint - UI components complete
   - Verify all components follow design system (colors, spacing, typography)
   - Test responsive design on mobile, tablet, desktop sizes
   - Verify mobile navigation works correctly
@@ -526,20 +527,20 @@ This implementation plan breaks down the development into logically ordered, tes
 ### Phase 10: Croatian Localization
 
 - [ ] 30. Implement i18n system
-  - [~] 30.1 Create Croatian translation file
+  - [ ] 30.1 Create Croatian translation file
     - Create locales/hr.json with all UI text translations
     - Include auth, navigation, tickets, announcements, assets, workflows, users sections
     - Include common terms (save, cancel, delete, edit, create, search, filter, loading, error, success)
     - Include validation error messages
     - _Requirements: 12.1, 12.4, 12.5, 12.6, 12.7, 12.8_
   
-  - [~] 30.2 Build translation context and hook
+  - [ ] 30.2 Build translation context and hook
     - Create TranslationProvider context
     - Create useTranslation hook with t() function
     - Support nested key lookup (e.g., "auth.login")
     - _Requirements: 12.1_
   
-  - [~] 30.3 Implement Croatian date formatting
+  - [ ] 30.3 Implement Croatian date formatting
     - Create dateFormatter utility using date-fns with Croatian locale
     - Implement formatDate (dd.MM.yyyy), formatTime (HH:mm), formatDateTime functions
     - Implement formatRelativeTime for "prije X sati" format
@@ -547,14 +548,14 @@ This implementation plan breaks down the development into logically ordered, tes
     - _Requirements: 12.2, 12.3, 12.9_
 
 - [ ] 31. Apply localization throughout UI
-  - [~] 31.1 Localize all pages and components
+  - [ ] 31.1 Localize all pages and components
     - Replace all hardcoded English text with t() function calls
     - Verify all form labels, buttons, navigation use Croatian
     - Verify all validation errors display in Croatian
     - Verify all notifications display in Croatian
     - _Requirements: 12.1, 12.4, 12.5, 12.6, 12.7, 12.8_
 
-- [~] 32. Checkpoint - Localization complete
+- [ ] 32. Checkpoint - Localization complete
   - Verify all UI text is in Croatian
   - Verify dates format as dd.MM.yyyy
   - Verify times format as HH:mm (24-hour)
@@ -565,20 +566,20 @@ This implementation plan breaks down the development into logically ordered, tes
 ### Phase 11: Advanced Features & Polish
 
 - [ ] 33. Activity logging and audit trail
-  - [~] 33.1 Implement audit logging middleware
+  - [ ] 33.1 Implement audit logging middleware
     - Create auditLogger middleware capturing user actions
     - Log authentication attempts, role changes, ticket status changes, workflow executions
     - Store timestamp, user identity, action type, affected resource, result
     - _Requirements: 16.1, 16.2, 16.3, 16.4, 16.5, 16.6_
   
-  - [~] 33.2 Create audit log viewing API and UI
+  - [ ] 33.2 Create audit log viewing API and UI
     - Implement GET /api/v1/audit-logs with filtering by date, user, action type (Administrator only)
     - Create AuditLogPage displaying audit entries in reverse chronological order
     - Display all fields in Croatian
     - _Requirements: 16.7, 16.8, 16.9_
 
 - [ ] 34. Error handling and validation
-  - [~] 34.1 Implement comprehensive backend error handling
+  - [ ] 34.1 Implement comprehensive backend error handling
     - Create global error handler middleware
     - Map errors to appropriate HTTP status codes
     - Return structured error responses with Croatian messages
@@ -586,7 +587,7 @@ This implementation plan breaks down the development into logically ordered, tes
     - Distinguish client errors (4xx) from server errors (5xx)
     - _Requirements: 20.3, 20.4, 20.7, 20.8, 20.10_
   
-  - [~] 34.2 Implement frontend error handling
+  - [ ] 34.2 Implement frontend error handling
     - Add error states to all API requests
     - Display field-specific validation errors
     - Display network error messages in Croatian
@@ -594,7 +595,7 @@ This implementation plan breaks down the development into logically ordered, tes
     - Never expose technical details to users
     - _Requirements: 20.1, 20.2, 20.5, 20.6, 20.7_
   
-  - [~] 34.3 Add input validation everywhere
+  - [ ] 34.3 Add input validation everywhere
     - Validate all API request bodies on server with express-validator
     - Use Zod schemas for frontend form validation
     - Sanitize inputs to prevent SQL injection
@@ -603,20 +604,20 @@ This implementation plan breaks down the development into logically ordered, tes
     - _Requirements: 9.6, 11.1, 11.2, 11.3, 20.1_
 
 - [ ] 35. Security hardening
-  - [~] 35.1 Implement rate limiting
+  - [ ] 35.1 Implement rate limiting
     - Add rate limiter to authentication endpoints (5 requests per 15 minutes)
     - Add rate limiter to general API endpoints (100 requests per 15 minutes)
     - Return Croatian error message when rate limit exceeded
     - _Requirements: 11.6_
   
-  - [~] 35.2 Enhance authentication security
+  - [ ] 35.2 Enhance authentication security
     - Implement password complexity validation on registration
     - Hash all passwords with bcrypt SALT_ROUNDS=12
     - Implement session expiry after 24 hours
     - Validate JWT signatures on all protected requests
     - _Requirements: 1.3, 11.5, 11.7, 11.11_
   
-  - [~] 35.3 Implement security best practices
+  - [ ] 35.3 Implement security best practices
     - Use parameterized queries for all database operations
     - Sanitize all user-generated content before display
     - Enforce HTTPS in production configuration
@@ -625,21 +626,21 @@ This implementation plan breaks down the development into logically ordered, tes
     - _Requirements: 11.2, 11.3, 11.4, 11.8, 11.9_
 
 - [ ] 36. Performance optimization
-  - [~] 36.1 Optimize frontend performance
+  - [ ] 36.1 Optimize frontend performance
     - Implement code splitting for routes with React.lazy
     - Memoize expensive components with React.memo
     - Debounce search inputs with useDebounce hook
     - Lazy load images in announcements
     - _Requirements: 6.10, 17.4_
   
-  - [~] 36.2 Optimize backend performance
+  - [ ] 36.2 Optimize backend performance
     - Add database indexes to all frequently queried columns (already in migrations)
     - Implement query optimization (select specific columns, avoid N+1)
     - Cache dashboard statistics for 30 seconds
     - Use connection pooling for database
     - _Requirements: 10.10_
 
-- [~] 37. Checkpoint - Advanced features complete
+- [ ] 37. Checkpoint - Advanced features complete
   - Test audit log captures all specified actions
   - Verify error handling displays Croatian messages
   - Test rate limiting on authentication endpoints
@@ -650,7 +651,7 @@ This implementation plan breaks down the development into logically ordered, tes
 ### Phase 12: Documentation & Demo Preparation
 
 - [ ] 38. Create seed data for demonstration
-  - [~] 38.1 Write seed.sql with Croatian demo data
+  - [ ] 38.1 Write seed.sql with Croatian demo data
     - Create 5 demo users (1 Administrator, 1 Tehničar, 3 Registrirani_Korisnik)
     - Create 10 demo tickets in various statuses with Croatian titles/descriptions
     - Create 5 demo announcements with Croatian content
@@ -659,7 +660,7 @@ This implementation plan breaks down the development into logically ordered, tes
     - Create demo announcement categories
     - _Requirements: 19.1, 19.2, 19.3, 19.4, 19.5, 19.6_
   
-  - [~] 38.2 Create 25-minute demo workflow guide
+  - [ ] 38.2 Create 25-minute demo workflow guide
     - Document step-by-step demo script covering all roles
     - Include Registrirani_Korisnik workflow (create ticket, view own tickets, add comment)
     - Include Tehničar workflow (assign ticket, change status, create announcement, manage assets)
@@ -668,25 +669,25 @@ This implementation plan breaks down the development into logically ordered, tes
     - _Requirements: 19.7, 19.9_
 
 - [ ] 39. Complete documentation
-  - [~] 39.1 Write API documentation
+  - [ ] 39.1 Write API documentation
     - Document all REST API endpoints in docs/API.md
     - Include request/response formats, authentication requirements, error codes
     - Document all query parameters for filtering
     - _Requirements: 9.10, 18.1, 18.6_
   
-  - [~] 39.2 Write database documentation
+  - [ ] 39.2 Write database documentation
     - Document all database tables in docs/DATABASE.md
     - Include column descriptions, data types, foreign keys
     - Add entity-relationship diagram or table descriptions
     - _Requirements: 18.2, 18.7_
   
-  - [~] 39.3 Write external API documentation
+  - [ ] 39.3 Write external API documentation
     - Document GitHub Status API integration in docs/EXTERNAL_API.md
     - Include API endpoints, authentication, error handling
     - Document caching strategy
     - _Requirements: 18.3, 18.8_
   
-  - [~] 39.4 Write installation guide
+  - [ ] 39.4 Write installation guide
     - Document prerequisites in docs/INSTALLATION.md
     - Include environment variable setup
     - Document database migration steps
@@ -694,14 +695,14 @@ This implementation plan breaks down the development into logically ordered, tes
     - Include deployment instructions
     - _Requirements: 18.4, 18.9, 19.9_
   
-  - [~] 39.5 Write user guide
+  - [ ] 39.5 Write user guide
     - Document user workflows in docs/USER_GUIDE.md for each role
     - Include screenshots or descriptions of key features
     - Document common tasks (create ticket, publish announcement, etc.)
     - _Requirements: 18.5, 18.10_
 
 - [ ] 40. Final testing and demo preparation
-  - [~] 40.1 End-to-end testing
+  - [ ] 40.1 End-to-end testing
     - Test complete user registration and login flow
     - Test ticket creation, assignment, status change workflow
     - Test announcement creation and publishing workflow
@@ -709,14 +710,14 @@ This implementation plan breaks down the development into logically ordered, tes
     - Test mobile responsive layout
     - _Requirements: 13.1-13.10, 19.7_
   
-  - [~] 40.2 Demo rehearsal
+  - [ ] 40.2 Demo rehearsal
     - Load seed data
     - Walk through 25-minute demo script
     - Verify all features demonstrated work smoothly
     - Time each section to ensure 25-minute target
     - _Requirements: 19.7, 19.8_
 
-- [~] 41. Final checkpoint - Project complete
+- [ ] 41. Final checkpoint - Project complete
   - Verify all requirements are implemented
   - Verify all documentation is complete
   - Verify seed data loads correctly

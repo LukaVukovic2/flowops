@@ -4,9 +4,11 @@
  */
 
 export { default as authRoutes } from './auth.routes.js';
+export { default as ticketRoutes } from './tickets.routes.js';
+export { default as announcementRoutes } from './announcements.routes.js';
+export { default as announcementCategoriesRoutes } from './announcementCategories.routes.js';
+export { default as usersRoutes } from './users.routes.js';
 
 // Additional routes will be imported here as they are created
-// Example:
-// export { default as ticketRoutes } from './tickets.routes.js';
 
 export default {};
