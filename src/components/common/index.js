@@ -11,3 +11,4 @@ export { default as Modal } from './Modal.jsx';
 export { default as Badge } from './Badge.jsx';
 export { default as Notification } from './Notification.jsx';
 export { default as LoadingSkeleton } from './LoadingSkeleton.jsx';
+export { default as Pagination } from './Pagination.jsx';

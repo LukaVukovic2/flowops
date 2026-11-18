@@ -230,3 +230,47 @@ export async function deleteTicket(ticketId) {
 
   return true;
 }
+
+/**
+ * Get tickets linked to a specific asset
+ * @param {string} assetId - Asset UUID
+ * @param {Object} options - Pagination options
+ * @param {number} options.page - Page number (default: 1)
+ * @param {number} options.limit - Items per page (default: 20)
+ * @returns {Promise<Object>} Paginated tickets linked to the asset
+ */
+export async function getTicketsByAssetId(assetId, options = {}) {
+  const { page = 1, limit = 20 } = options;
+
+  let query = supabase
+    .from('tickets')
+    .select(
+      `
+      *,
+      creator:users!tickets_creator_id_fkey(id, email, first_name, last_name, role),
+      assignee:users!tickets_assignee_id_fkey(id, email, first_name, last_name, role)
+    `,
+      { count: 'exact' }
+    )
+    .eq('asset_id', assetId);
+
+  // Apply pagination
+  const offset = (page - 1) * limit;
+  query = query.order('created_at', { ascending: false }).range(offset, offset + limit - 1);
+
+  const { data, error, count } = await query;
+
+  if (error) {
+    throw new Error(`Failed to get tickets for asset: ${error.message}`);
+  }
+
+  return {
+    tickets: data,
+    pagination: {
+      page: parseInt(page),
+      limit: parseInt(limit),
+      total: count,
+      totalPages: Math.ceil(count / limit),
+    },
+  };
+}

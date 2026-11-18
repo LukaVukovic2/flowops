@@ -13,9 +13,11 @@ import Modal from '../../components/common/Modal';
 import Button from '../../components/common/Button';
 import { getAnnouncements, createAnnouncement, updateAnnouncement } from '../../services/announcementService';
 import { useAuth } from '../../context/AuthContext';
+import { useNotification } from '../../context/NotificationContext';
 
 const AnnouncementsPage = () => {
   const { user } = useAuth();
+  const { showSuccess, showError } = useNotification();
   const [announcements, setAnnouncements] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -60,12 +62,11 @@ const AnnouncementsPage = () => {
       const newAnnouncement = await createAnnouncement(formData);
       setAnnouncements(prev => [newAnnouncement, ...prev]);
       setIsCreateModalOpen(false);
-      
-      // Show success message (you could add a notification here)
-      console.log('Announcement created successfully');
+      showSuccess('Objava je uspješno kreirana');
     } catch (err) {
+      const errorMessage = err.response?.data?.message || 'Greška pri kreiranju objave';
+      showError(errorMessage);
       console.error('Failed to create announcement:', err);
-      // Error will be shown in the form
       throw err;
     } finally {
       setSubmitting(false);
@@ -83,12 +84,11 @@ const AnnouncementsPage = () => {
       );
       setIsEditModalOpen(false);
       setEditingAnnouncement(null);
-      
-      // Show success message
-      console.log('Announcement updated successfully');
+      showSuccess('Objava je uspješno ažurirana');
     } catch (err) {
+      const errorMessage = err.response?.data?.message || 'Greška pri ažuriranju objave';
+      showError(errorMessage);
       console.error('Failed to update announcement:', err);
-      // Error will be shown in the form
       throw err;
     } finally {
       setSubmitting(false);

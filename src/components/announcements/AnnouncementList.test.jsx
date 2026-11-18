@@ -137,14 +137,14 @@ describe('AnnouncementList Component', () => {
   });
 
   it('shows loading skeletons when loading', () => {
-    render(
+    const { container } = render(
       <BrowserRouter>
         <AnnouncementList announcements={[]} loading={true} />
       </BrowserRouter>
     );
 
-    // Should render 3 skeleton cards
-    const skeletons = screen.getAllByTestId(/loading-skeleton/i);
+    // Should render 3 skeleton cards (check for animate-pulse class which is used by skeletons)
+    const skeletons = container.querySelectorAll('.animate-pulse');
     expect(skeletons.length).toBeGreaterThan(0);
   });
 

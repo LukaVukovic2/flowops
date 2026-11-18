@@ -236,8 +236,8 @@ This implementation plan breaks down the development into logically ordered, tes
     - ✅ Implement DELETE /api/v1/announcements/categories/:id (Administrator only)
     - _Requirements: 3.2_
 
-- [~] 12. Announcement CMS frontend
-  - [-] 12.1 Create announcement display components
+- [ ] 12. Announcement CMS frontend
+  - [ ] 12.1 Create announcement display components
     - Build AnnouncementList component with category badges and images
     - Build AnnouncementCard component with publish date formatting
     - Build AnnouncementDetail component for full content view
@@ -245,7 +245,7 @@ This implementation plan breaks down the development into logically ordered, tes
     - Format timestamps in Croatian locale
     - _Requirements: 3.3, 3.9, 3.10, 12.2_
   
-  - [ ] 12.2 Create announcement management UI (Tehničar/Administrator)
+  - [x] 12.2 Create announcement management UI (Tehničar/Administrator)
     - Build AnnouncementForm component with title, content, category, image fields
     - Implement image upload validation (format and size ≤ 10MB)
     - Build publish/unpublish toggle
@@ -253,7 +253,7 @@ This implementation plan breaks down the development into logically ordered, tes
     - Show success notifications on publish
     - _Requirements: 3.1, 3.4, 3.5, 3.6, 12.1, 12.6_
   
-  - [ ] 12.3 Implement announcement filtering
+  - [x] 12.3 Implement announcement filtering
     - Build AnnouncementFilters component with category and author filters
     - Update list view when filters change
     - Display filter controls in Croatian
@@ -316,34 +316,34 @@ This implementation plan breaks down the development into logically ordered, tes
 
 ### Phase 6: IT Asset Management
 
-- [ ] 17. Asset management backend
-  - [ ] 17.1 Create asset data model
+- [x] 17. Asset management backend
+  - [x] 17.1 Create asset data model
     - Implement asset model with CRUD operations
     - Validate type enum (Hardware, Software, Network, Peripheral)
     - Validate status enum (Active, Inactive, Maintenance, Retired)
     - _Requirements: 8.1, 8.2, 8.3_
   
-  - [ ] 17.2 Implement asset CRUD API endpoints
+  - [x] 17.2 Implement asset CRUD API endpoints
     - Implement GET /api/v1/assets with filtering by type, status, location
     - Implement POST /api/v1/assets (Tehničar and Administrator only)
     - Implement PUT /api/v1/assets/:id
     - Implement DELETE /api/v1/assets/:id (Administrator only)
     - _Requirements: 8.4, 8.5, 17.3_
   
-  - [ ] 17.3 Implement asset-ticket linking
+  - [x] 17.3 Implement asset-ticket linking
     - Add assetId foreign key handling in ticket create/update
     - Implement endpoint to get tickets linked to specific asset
     - _Requirements: 8.6, 8.7_
 
-- [ ] 18. Asset management frontend
-  - [ ] 18.1 Create asset list and detail components
+- [x] 18. Asset management frontend
+  - [x] 18.1 Create asset list and detail components
     - Build AssetList component with type and status badges
     - Build AssetCard component
     - Build AssetDetail component showing all asset information
     - Display linked tickets in asset detail view
     - _Requirements: 8.7, 8.9_
   
-  - [ ] 18.2 Create asset form and filters
+  - [x] 18.2 Create asset form and filters
     - Build AssetForm component with all asset fields
     - Implement validation with Zod schemas
     - Build AssetFilters component for type, status, location filtering
@@ -361,21 +361,21 @@ This implementation plan breaks down the development into logically ordered, tes
 ### Phase 7: Workflow Automation Engine
 
 - [ ] 20. Workflow engine core
-  - [ ] 20.1 Implement workflow trigger evaluators
+  - [x] 20.1 Implement workflow trigger evaluators
     - Create TriggerEvaluator for ticket_created trigger
     - Create TriggerEvaluator for ticket_status_changed trigger
     - Create TriggerEvaluator for time_scheduled trigger using node-cron
     - Create TriggerEvaluator for external_status_changed trigger
     - _Requirements: 4.2_
   
-  - [ ] 20.2 Implement workflow action executors
+  - [x] 20.2 Implement workflow action executors
     - Create ActionExecutor for send_notification action
     - Create ActionExecutor for update_ticket_status action
     - Create ActionExecutor for assign_technician action with strategies (least_loaded, round_robin, specific)
     - Create ActionExecutor for create_announcement action
     - _Requirements: 4.3_
   
-  - [ ] 20.3 Build workflow execution engine
+  - [x] 20.3 Build workflow execution engine
     - Create WorkflowEngine class orchestrating trigger evaluation and action execution
     - Implement processEvent method for event-driven workflows
     - Implement scheduleWorkflows method for time-based workflows
@@ -383,7 +383,7 @@ This implementation plan breaks down the development into logically ordered, tes
     - Ensure workflow failures don't crash system
     - _Requirements: 4.4, 4.5, 4.7_
   
-  - [ ] 20.4 Implement circular dependency detection
+  - [x] 20.4 Implement circular dependency detection
     - Create dependency graph builder analyzing workflow rules
     - Implement cycle detection algorithm
     - Prevent activation of workflows with circular dependencies

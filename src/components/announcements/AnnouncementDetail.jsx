@@ -13,9 +13,11 @@ import LoadingSkeleton from '../common/LoadingSkeleton';
 import { formatDateTime } from '../../utils/dateFormatter';
 import { getAnnouncementById, deleteAnnouncement, publishAnnouncement } from '../../services/announcementService';
 import { useAuth } from '../../context/AuthContext';
+import { useNotification } from '../../context/NotificationContext';
 
 const AnnouncementDetail = ({ announcementId, onClose, onUpdate, onDelete, onEdit }) => {
   const { user } = useAuth();
+  const { showSuccess, showError } = useNotification();
   const [announcement, setAnnouncement] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -45,10 +47,13 @@ const AnnouncementDetail = ({ announcementId, onClose, onUpdate, onDelete, onEdi
     try {
       setDeleting(true);
       await deleteAnnouncement(announcementId);
+      showSuccess('Objava je uspješno obrisana');
       onDelete?.(announcementId);
       onClose?.();
     } catch (err) {
-      setError(err.response?.data?.message || 'Greška pri brisanju objave');
+      const errorMessage = err.response?.data?.message || 'Greška pri brisanju objave';
+      setError(errorMessage);
+      showError(errorMessage);
       console.error('Failed to delete announcement:', err);
     } finally {
       setDeleting(false);
@@ -63,8 +68,17 @@ const AnnouncementDetail = ({ announcementId, onClose, onUpdate, onDelete, onEdi
       const updatedAnnouncement = await publishAnnouncement(announcementId, newPublishStatus);
       setAnnouncement(updatedAnnouncement);
       onUpdate?.(updatedAnnouncement);
+      
+      // Show success notification based on action
+      if (newPublishStatus) {
+        showSuccess('Objava je uspješno objavljena');
+      } else {
+        showSuccess('Objava je uspješno uklonjena');
+      }
     } catch (err) {
-      setError(err.response?.data?.message || 'Greška pri promjeni statusa objave');
+      const errorMessage = err.response?.data?.message || 'Greška pri promjeni statusa objave';
+      setError(errorMessage);
+      showError(errorMessage);
       console.error('Failed to toggle publish status:', err);
     } finally {
       setPublishing(false);
